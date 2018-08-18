@@ -3,9 +3,15 @@ class StoresController < ApplicationController
 
   # GET /stores
   def index
-    @stores = Store.all
+    if params.key?('name')
+    @stores = Store.all.select do |store|
+      store.name.downcase.include? params ['name'].downcase
+      end
+      render json: @stores
+    else
 
-    render json: @stores
+      render json: Store.all
+    end
   end
 
   # GET /stores/1
@@ -46,6 +52,6 @@ class StoresController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def store_params
-      params.require(:store).permit(:schedule, :wifi, :outlets, :restrooms, :seating, :atmosphere)
+      params.require(:store).permit(:name, :schedule, :wifi, :outlets, :restrooms, :seating, :atmosphere)
     end
 end
