@@ -3,9 +3,16 @@ class AddressesController < ApplicationController
 
   # GET /addresses
   def index
-    @addresses = Address.all
+    if params.key?('line_one', 'line_two', 'city', 'state', 'zip_code')
+    @addresses = Address.all.select do |address|
+      address.line_one.downcase.include? params ['line_one'].downcase
+      address.line_two.downcase.include? params ['line_two'].downcase
+      address.city.downcase.include? params ['city'].downcase
+      address.state.downcase.include? params ['state'].downcase
+      address.zip_code.downcase.include? params ['zip_code'].downcase
+    end
+    render json: Store.where? @address.params[:id] == Store.address_id
 
-    render json: @addresses
   end
 
   # GET /addresses/1
