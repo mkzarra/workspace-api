@@ -11,7 +11,7 @@ class AddressesController < ApplicationController
       address.state.downcase.include? params ['state'].downcase
       address.zip_code.downcase.include? params ['zip_code'].downcase
     end
-    render json: Store.where? @address.params[:id] == Store.address_id
+    render json: @addresses
 
   end
 
