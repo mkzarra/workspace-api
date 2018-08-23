@@ -2,5 +2,6 @@
 
 class User < ApplicationRecord
   include Authentication
+  has_many :stores_users
   has_many :stores, through: :stores_users
 end

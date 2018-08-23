@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20180819181311) do
     t.string "zip_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "store_id"
+    t.index ["store_id"], name: "index_addresses_on_store_id"
   end
 
   create_table "examples", force: :cascade do |t|
@@ -43,13 +45,13 @@ ActiveRecord::Schema.define(version: 20180819181311) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.bigint "address_id"
-    t.index ["address_id"], name: "index_stores_on_address_id"
   end
 
   create_table "stores_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "store_id", null: false
+    t.index ["store_id"], name: "index_stores_users_on_store_id"
+    t.index ["user_id"], name: "index_stores_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,6 +64,6 @@ ActiveRecord::Schema.define(version: 20180819181311) do
     t.index ["token"], name: "index_users_on_token", unique: true
   end
 
+  add_foreign_key "addresses", "stores"
   add_foreign_key "examples", "users"
-  add_foreign_key "stores", "addresses"
 end
