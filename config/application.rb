@@ -31,18 +31,6 @@ module RemoteCafe
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    use Rack::Cors do
-      allow do
-      origins '*'
-      resource '*', headers: :any, methods: :any
-      end  
-    end 
-
-    config.action_dispatch.default_headers = {
-      'Access-Control-Allow-Origin' => '*',
-      'Access-Control-Request-Method' => %w{GET POST PUT PATCH OPTIONS}.join(",")
-    } 
-
     # By default in Rails 4 loading an AR model won't establish a connection
     # to the database until AR needs to fetch database therefore in the console
     # asking for a model like Patient will message
