@@ -12,7 +12,7 @@ class AddressesController < ApplicationController
       address.zip_code.downcase.include? params ['zip_code'].downcase
     end
     render json: @addresses
-
+  end
   end
 
   # GET /addresses/1
@@ -22,7 +22,8 @@ class AddressesController < ApplicationController
 
   # POST /addresses
   def create
-    @address = Address.new(address_params)
+    store_id = params[:store_id]
+    @address = Address.new(address_params.merge(store_id: store_id))
 
     if @address.save
       render json: @address, status: :created, location: @address
@@ -53,6 +54,6 @@ class AddressesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def address_params
-      params.require(:address).permit(:line_one, :line_two, :city, :state, :zip_code)
+      params.require(:address).permit(:line_one, :line_two, :city, :state, :zip_code, :store_id)
     end
 end
