@@ -3,7 +3,6 @@ class StoresController < ApplicationController
 
   # GET /stores
   def index
-    binding.pry
     if params.key?('name')
       @stores = Store.all.select do |store|
         next if store.name.nil? 
