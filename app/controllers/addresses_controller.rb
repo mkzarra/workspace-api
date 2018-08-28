@@ -5,10 +5,15 @@ class AddressesController < ApplicationController
   def index
     if params.key?('line_one', 'line_two', 'city', 'state', 'zip_code')
     @addresses = Address.all.select do |address|
+      next if address.line_one.nil?
       address.line_one.downcase.include? params ['line_one'].downcase
+      next if address.line_two.nil?
       address.line_two.downcase.include? params ['line_two'].downcase
+      next if address.city.nil?
       address.city.downcase.include? params ['city'].downcase
+      next if address.state.nil?
       address.state.downcase.include? params ['state'].downcase
+      next if address.zip_code.nil?
       address.zip_code.downcase.include? params ['zip_code'].downcase
     end
     render json: @addresses
