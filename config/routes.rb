@@ -2,9 +2,10 @@
 
 Rails.application.routes.draw do
   resources :addresses
-  resources :stores
-  resources :stores_users
-  
+  resources :stores do
+    resources :stores_users
+  end
+
   # RESTful routes
   resources :examples, except: %i[new edit]
   resources :users, only: %i[index show update]
