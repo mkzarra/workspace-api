@@ -1,9 +1,9 @@
-class StoresUsersController < ApplicationController
+class StoresUsersController < OpenReadController
   before_action :set_stores_user, only: %i[show, update, destroy]
 
   # GET /stores
   def index
-    @stores_users = StoresUser.all
+    @stores_users = current_users.stores
 
     render json: @stores_users
   end
