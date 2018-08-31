@@ -1,5 +1,5 @@
 class AddressesController < ApplicationController
-  before_action :set_address, only: [:show, :update, :destroy]
+  before_action :set_address, only: %i[:show, :update, :destroy]
 
   # GET /addresses
   def index

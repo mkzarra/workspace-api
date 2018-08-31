@@ -3,7 +3,7 @@ class StoresUsersController < OpenReadController
 
   # GET /stores
   def index
-    @stores_users = current_users.stores
+    @stores_users = current_user.stores.all
 
     render json: @stores_users
   end
@@ -35,7 +35,7 @@ class StoresUsersController < OpenReadController
 
   # DELETE /stores
   def delete
-    @stores_user.delete
+    @stores_user.destroy
   end
 
   private
@@ -46,6 +46,6 @@ class StoresUsersController < OpenReadController
 
   # Only allow trusted params to "white list" through.
   def stores_user_params
-    params.require(:stores_user).permit(:store_id, :user_id)
+    params.require(:stores_user).permit(:id, :store_id, :user_id)
   end
 end

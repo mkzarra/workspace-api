@@ -65,7 +65,5 @@ ActiveRecord::Schema.define(version: 20180819181311) do
   end
 
   add_foreign_key "addresses", "stores"
-  add_foreing_key "stores_users", "stores"
-  add_foreign_key "stores_users", "users"
   add_foreign_key "examples", "users"
 end
