@@ -1,5 +1,5 @@
 class StoresUsersController < ApplicationController
-  before_action :set_stores_user, only: [show, update, destroy]
+  before_action :set_stores_user, only: %i[show, update, destroy]
 
   # GET /stores
   def index
@@ -15,12 +15,10 @@ class StoresUsersController < ApplicationController
 
   # POST /stores
   def create
-    store_id = params[:store_id]
-    user_id = params[:user_id]
-    @stores_user = StoresUser.new(stores_user_params.merge(store_id: store_id, user_id: user_id))
+    @stores_user = StoresUser.new(stores_user_params)
 
     if @stores_user.save
-      render json: @stores_user, status: :created, location: @stores_user
+      render json: @stores_user, status: :created
     else
       render json: @stores_user.errors, status: :unprocessable_entity
     end
