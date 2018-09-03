@@ -1,16 +1,11 @@
-class StoresUsersController < ApplicationController
+class StoresUsersController < OpenReadController
   before_action :set_stores_user, only: %i[show, update, destroy]
 
   # GET /stores
-  def index
-    @stores_users = StoresUser.all
+  def show
+    @stores_users = current_user.stores.all
 
     render json: @stores_users
-  end
-
-  # GET /stores/1
-  def show
-    render json: @stores_user
   end
 
   # POST /stores
@@ -34,18 +29,22 @@ class StoresUsersController < ApplicationController
   end
 
   # DELETE /stores
-  def delete
-    @stores_user.delete
+  def destroy
+    @stores_user.destroy
   end
 
   private
   # Use callbacks to share common set up or constraints between actions.
   def set_stores_user
-    @stores_user = StoresUser.find(params[:id])
+    if params[:id]
+      @stores_user = StoresUser.find(params[:id])
+    elsif stores_user_params[:store_id] && stores_user_params[:user_id]
+      @stores_user = StoresUser.find_by(store_id: stores_user_params[:store_id], user_id: stores_user_params[:user_id])
+    end
   end
 
   # Only allow trusted params to "white list" through.
   def stores_user_params
-    params.require(:stores_user).permit(:store_id, :user_id)
+    params.require(:stores_user).permit(:id, :store_id, :user_id)
   end
 end

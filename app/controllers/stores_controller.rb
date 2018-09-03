@@ -1,5 +1,5 @@
-class StoresController < ApplicationController
-  before_action :set_store, only: [:show, :update, :destroy]
+class StoresController < OpenReadController
+  before_action :set_store, only: %i[show update destroy]
 
   # GET /stores
   def index
@@ -41,7 +41,7 @@ class StoresController < ApplicationController
 
   # DELETE /stores/1
   def destroy
-    @store.destroy
+    @store.destroy(params[:id])
   end
 
   private

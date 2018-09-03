@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   resources :addresses
   resources :stores
-  resources :stores_users
+  resource :stores_user
 
   # RESTful routes
   resources :examples, except: %i[new edit]
