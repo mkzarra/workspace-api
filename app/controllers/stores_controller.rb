@@ -1,5 +1,5 @@
 class StoresController < OpenReadController
-  before_action :set_store, only: %i[:show, :update, :destroy]
+  before_action :set_store, only: %i[show update destroy]
 
   # GET /stores
   def index
